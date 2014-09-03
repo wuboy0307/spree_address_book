@@ -10,7 +10,7 @@
 
 <% content_for :page_actions do %>
   <li><%= button_link_to Spree.t(:new_address), new_admin_user_address_url(@user), :icon => 'plus' %></li>
-  <li><%= button_link_to Spree.t(:back_to_orders_list), admin_user_addresses_path(@user), :icon => 'arrow-left' %></li>
+  <li><%= button_link_to Spree.t(:back_to_address_list), admin_user_addresses_path(@user), :icon => 'arrow-left' %></li>
 <% end %>
 
 <div data-hook="admin_user_edit_form_header">
