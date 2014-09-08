@@ -8,7 +8,7 @@ en:
     all_user_addresses: "All User Addresses"
     addresses: "Addresses"
     address: "Address"
-    back_to_addresses: "Back to Address List"
+    back_to_address_list: "Back to Address List"
     billing_address: "Billing Address"
     current_order_addresses: "Current Order Addresses"
     default_addresses: "Default Addresses"
