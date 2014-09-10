@@ -4,7 +4,9 @@
 <% end %>
 
 <% content_for :page_actions do %>
-  <li><%= button_link_to Spree.t(:new_address), new_admin_user_address_url(@user, order: @order.number), :icon => 'plus' %></li>
+  <% if @user %>
+    <li><%= button_link_to Spree.t(:new_address), new_admin_user_address_url(@user, order: @order.number), :icon => 'plus' %></li>
+  <% end %>
   <li><%= button_link_to Spree.t(:back_to_orders_list), admin_orders_path, :icon => 'arrow-left' %></li>
 <% end %>
 

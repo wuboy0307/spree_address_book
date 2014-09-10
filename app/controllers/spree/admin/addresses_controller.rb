@@ -3,33 +3,17 @@ module Spree
     class AddressesController < ResourceController
       def index
         @order = Spree::Order.find_by(number: params[:order_id])
-        @user =
-          if @order
-            @order.user
-          else
-            Spree::User.find(params[:user_id])
-          end
-
-        @default_user_addresses_hash = {}
+        @user = @order.present? ? @order.user : Spree::User.find(params[:user_id])
 
         if @user
+          @default_user_addresses_hash = {}
+
           if @user.bill_address
             @default_user_addresses_hash[I18n.t(:billing_address, scope: :address_book)] = @user.bill_address
           end
 
           if @user.ship_address
             @default_user_addresses_hash[I18n.t(:shipping_address, scope: :address_book)] = @user.ship_address
-          end
-        end
-
-        if @order
-          @current_order_addresses_hash = {}
-          if @order.bill_address
-            @current_order_addresses_hash[I18n.t(:billing_address, scope: :address_book)] = @order.bill_address
-          end
-
-          if @order.ship_address
-            @current_order_addresses_hash[I18n.t(:shipping_address, scope: :address_book)] = @order.ship_address
           end
 
           previous_order = Spree::Order.where(user_id: @user.id).order(:created_at).last
@@ -43,6 +27,18 @@ module Spree
             if previous_order.ship_address
               @previous_order_addresses_hash[I18n.t(:shipping_address, scope: :address_book)] = previous_order.ship_address
             end
+          end
+        end
+
+        if @order
+          @current_order_addresses_hash = {}
+
+          if @order.bill_address
+            @current_order_addresses_hash[I18n.t(:billing_address, scope: :address_book)] = @order.bill_address
+          end
+
+          if @order.ship_address
+            @current_order_addresses_hash[I18n.t(:shipping_address, scope: :address_book)] = @order.ship_address
           end
         end
 
