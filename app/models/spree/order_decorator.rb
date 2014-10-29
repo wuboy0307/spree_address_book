@@ -54,23 +54,21 @@ Spree::Order.class_eval do
 
   private
 
+  # Updates an existing address or creates a new one
+  # if the address already exists it will only update its attributes
+  # in case the address is +editable?+
   def update_or_create_address(attributes)
+
     if attributes[:id]
       address = Spree::Address.find(attributes[:id])
-      attributes.delete(:id)
-
-      if address && address.editable?
+      if address.editable?
         address.update_attributes(attributes)
       else
-        attributes.delete(:id)
+        address.errors.add(:base, I18n.t(:address_not_editable, scope: [:address_book]))
       end
+    else
+      address = Spree::Address.create(attributes)
     end
-
-    if !attributes[:id]
-      address = Spree::Address.new(attributes)
-      address.save
-    end
-
     address
   end
 end
