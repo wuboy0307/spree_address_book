@@ -36,3 +36,5 @@ en:
     use_current_order: "Use for Current Order"
     use_billing_address: "Use as Billing Address"
     use_shipping_address: "Use as Shipping Address"
+  spree:
+    save_my_address: "Make these addresses my default"
