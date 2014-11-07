@@ -15,7 +15,7 @@ Spree.user_class.class_eval do
 
   # This is the method that Spree calls when the user has requested that the
   # address be their default address. Spree makes a copy from the order. Instead
-  # we just want to
+  # we just want to reference the address so we don't create extra address objects.
   def persist_order_address(order)
     update_attributes bill_address_id: order.bill_address_id
 
