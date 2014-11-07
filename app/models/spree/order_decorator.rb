@@ -52,6 +52,16 @@ Spree::Order.class_eval do
     self.update_attributes(ship_address_id: address.id) if shipping.present?
   end
 
+  # Override default spree implementation to reference address instead of
+  # copying the address. Also unlike stock spree, we copy the ship address even
+  # if there is no delivery state for completeness.
+  def assign_default_addresses!
+    if self.user
+      self.bill_address_id = user.bill_address_id if !self.bill_address_id && user.bill_address.try(:valid?)
+      self.ship_address_id = user.ship_address_id if !self.ship_address_id && user.ship_address.try(:valid?)
+    end
+  end
+
   private
 
   # Updates an existing address or creates a new one

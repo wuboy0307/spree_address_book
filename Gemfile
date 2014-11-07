@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-spree_branch = '2-2-stable'
+spree_branch = '2-3-stable'
 gem 'spree', github: 'spree/spree', :branch => spree_branch
 gem 'spree_auth_devise', :git => 'git://github.com/spree/spree_auth_devise', :branch => spree_branch
 gem 'coffee-rails', '~> 4.0.0'

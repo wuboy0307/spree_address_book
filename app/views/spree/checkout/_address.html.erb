@@ -11,7 +11,7 @@
 
       <% if address_type == 'shipping' && !Spree::AddressBook::Config[:disable_bill_address] %>
         <p class="field checkbox"  data-hook="use_billing">
-          <%= check_box_tag 'order[use_billing]', '1', (!(@order.bill_address.empty? && @order.ship_address.empty?) && @order.bill_address.same_as?(@order.ship_address)) %>
+          <%= check_box_tag 'order[use_billing]', '1', (!(@order.bill_address.blank? && @order.ship_address.blank?) && @order.bill_address.same_as?(@order.ship_address)) %>
           <%= label_tag :order_use_billing, Spree.t(:use_billing_address), :id => 'use_billing' %>
         </p>
       <% end %>
@@ -21,14 +21,14 @@
           <p class="field">
             <% @addresses.each_with_index do |address, idx| %>
               <span id="<%= [address_type, dom_id(address)].join('_') %>">
-                <label><%= form.radio_button "#{address_name}_id", address.id, :checked => (idx == 0) %> <%= address %></label> <%= link_to Spree.t(:edit), edit_address_path(address) %><br />
+                <label><%= form.radio_button "#{address_name}_id", address.id, :checked => address_is_checked(@order, address, address_type) %> <%= address %></label> <%= link_to Spree.t(:edit), edit_address_path(address) %><br />
               </span>
             <% end %>
             <label><%= form.radio_button "#{address_name}_id", 0 %> <%= I18n.t(:other_address, :scope => :address_book) %></label>
           </p>
         </div>
       <% end %>
-      <%= form.fields_for address_name do |address_form| %>
+      <%= form.fields_for address_name, Spree::Address.default do |address_form| %>
         <div class="inner" data-hook=<%="#{address_type}_inner" %>>
           <%= render :partial => 'spree/addresses/form', :locals => {
             :address_name => address_name,
@@ -45,4 +45,5 @@
 <hr class="clear" />
 <div class="form-buttons" data-hook="buttons">
   <%= submit_tag Spree.t(:save_and_continue), :class => 'continue button primary' %>
+  <%= save_default_address_check_box %>
 </div>
