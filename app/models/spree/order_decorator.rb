@@ -62,6 +62,30 @@ Spree::Order.class_eval do
     end
   end
 
+  # While an order is in progress it refers to the same object as is in the
+  # address book (i.e. it is a reference). This makes the UI code easier. Once a
+  # order is complete we want to copy clone the address so the order/shipments
+  # have their own copy. This preserves the historical data should the addresses
+  # in the address book be changed or removed.
+  def delink_addresses
+    if bill_address_id?
+      bill_copy = bill_address.clone
+      bill_copy.user_id = nil
+      bill_copy.save!
+      self.bill_address = bill_copy
+    end
+
+    if ship_address_id?
+      ship_copy = ship_address.clone
+      ship_copy.user_id = nil
+      ship_copy.save!
+      self.ship_address = ship_copy
+      shipments.update_all address_id: ship_address_id
+    end
+    save!
+  end
+  state_machine.after_transition to: :complete, do: :delink_addresses
+
   private
 
   # Updates an existing address or creates a new one
