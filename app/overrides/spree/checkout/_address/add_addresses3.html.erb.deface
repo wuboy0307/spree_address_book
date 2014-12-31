@@ -1,0 +1,13 @@
+<!-- insert_bottom "#shipping"-->
+<% address_type = "shipping" %>
+<% address_name = "ship_address" %>
+<% if @addresses.present? %>
+<div class="select_address">
+  <p class="form-group">
+    <%= form.label "#{address_name}_id", Spree.t(:select_address) %><br />
+    <%= form.select("#{address_name}_id",
+    options_for_select(@addresses.map{|a| ["#{a.full_name}-#{a.address1}", a.id, a.to_data]}),
+    {:include_blank => true}, {:class => "form-control"})%>
+  </p>
+</div>
+<% end %>

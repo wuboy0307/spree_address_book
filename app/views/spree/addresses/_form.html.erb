@@ -2,7 +2,7 @@
 
 <% ADDRESS_FIELDS.each do |field| %>
   <% if field == "country" %>
-    <p class="field" id="<%= "#{address_id}country" %>">
+    <p class="field form-group" id="<%= "#{address_id}country" %>">
       <%= address_form.label :country_id, Spree.t(:country) %><span class="required">*</span><br />
       <span id="<%= "#{address_id}country-selection" %>">
         <%= address_form.collection_select :country_id, available_countries, :id, :name, {}, {:class => 'required'} %>

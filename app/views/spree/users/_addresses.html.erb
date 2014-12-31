@@ -1,12 +1,14 @@
 <h3><%= I18n.t(:shipping_addresses, :scope => :address_book) %></h3>
 <% if spree_current_user.addresses.present? %>
-<table id="user_addresses">
+<table id="user_addresses" class="table">
   <tbody>
     <% spree_current_user.addresses.each do |address| %>
     <tr class="<%= cycle('even', 'odd') %>">
       <td><%= address %></td>
       <td>
-        <%= link_to Spree.t(:edit), edit_address_path(address) %>&nbsp;
+        <%= link_to Spree.t(:edit), edit_address_path(address) %>
+      </td>
+      <td>
         <%= link_to Spree.t(:remove), address_path(address), { :method => :delete, data: {:confirm => Spree.t(:are_you_sure)} } %>
       </td>
     </tr>
@@ -19,5 +21,5 @@
 </div>
 <% end %>
 <div id="new_address_link">
-  <%= link_to I18n.t(:add_new_shipping_address, :scope => :address_book), :controller => :addresses, :action => :new %>
+  <%= link_to I18n.t(:add_new_shipping_address, :scope => :address_book), {:controller => :addresses, :action => :new}, {:class => "btn btn-default"} %>
 </div>

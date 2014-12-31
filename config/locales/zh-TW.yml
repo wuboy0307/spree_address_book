@@ -1,0 +1,36 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+zh-TW:
+  address_book:
+    other_address: "其他地址"
+    add_new_shipping_address: "新增地址"
+    new_shipping_address: "新地址"
+    edit_shipping_address: "編輯地址"
+    no_shipping_addresses_on_file: "目前沒有地址"
+    shipping_addresses: "地址簿"
+    successfully_saved: "儲存成功"
+    unsuccessfully_saved: "儲存失敗"
+    successfully_updated: "更新成功"
+    unsuccessfully_updated: "更新失敗"
+    save: "儲存"
+  spree:
+    select_address: 快速選擇地址

@@ -1,50 +1,39 @@
-(function($) {
-  $(document).ready(function(){
-    if ($(".select_address").length) {
-      $('input#order_use_billing').unbind("change");
-      
-      $(".inner input").prop("disabled", true);
-      $(".inner select").prop("disabled", true);
+(function ($) {
 
-      $("input[name='order[bill_address_id]']:radio").change(function(){
-        if ($("input[name='order[bill_address_id]']:checked").val() == '0') {
-          show_address_form('billing');
-        } else {
-          hide_address_form('billing');
-        }
-      }).change();
+    function setAddress($select) {
+        var $parent = $select.parents("#billing, #shipping");
+        var $selected = $select.children(":selected");
+        var address1 = $selected.data("address1");
+        var zipcode = $selected.data("zipcode");
+        var city = $selected.data("city");
+        var district = $selected.data("district");
+        var fullname = $selected.data("full-name");
+        var phone = $selected.data("phone");
 
-      $("input[name='order[ship_address_id]']:radio").change(function(){
-        if ($("input[name='order[ship_address_id]']:checked").val() == '0') {
-          show_address_form('shipping');
-        } else {
-          hide_address_form('shipping');
-        }
-      }).change();
-
-      $('input#order_use_billing').change(function() {
-        if ($(this).is(':checked')) {
-          $("#shipping .select_address").hide();
-          hide_address_form('shipping');
-        } else {
-          $("#shipping .select_address").show();
-          if ($("input[name='order[ship_address_id]']:checked").val() == '0') {
-            show_address_form('shipping');
-          }
-        }
-      }).change();
+        $parent.find("[name$='[address1]']").val(address1);
+        $parent.find("[name$='[fullname]']").val(fullname);
+        $parent.find("[name$='[phone]']").val(phone);
+        $parent.find("[name$='[zipcode]']").val(zipcode);
+        $parent.find("[name$='[city]']").children("option[value='"+ city +"']").attr("selected", true);
+        $parent.find("[name$='[city]']").change();
+        $parent.find("[name$='[district]']").children("option[value='"+ district +"']").attr("selected", true);
+        $parent.find("[name$='[district]']").change();
     }
-  });
 
-  function hide_address_form(address_type){
-    $("#" + address_type + " .inner").hide();
-    $("#" + address_type + " .inner input").prop("disabled", true);
-    $("#" + address_type + " .inner select").prop("disabled", true);
-  }
+    $(document).ready(function () {
+        var $bill_address = $("[name='order[bill_address_id]']");
+        if ($bill_address.length > 0) {
+            $bill_address.change(function() {
+                setAddress($bill_address);
+            });
+        }
 
-  function show_address_form(address_type){
-    $("#" + address_type + " .inner").show();
-    $("#" + address_type + " .inner input").prop("disabled", false);
-    $("#" + address_type + " .inner select").prop("disabled", false);
-  }
+        var $ship_address = $("[name='order[ship_address_id]']");
+        if ($ship_address.length > 0) {
+            $ship_address.change(function() {
+                setAddress($ship_address);
+            });
+        }
+    });
+
 })(jQuery);

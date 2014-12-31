@@ -4,6 +4,8 @@ class AddUserIdAndDeletedAtToAddresses < ActiveRecord::Migration
       t.integer :user_id
       t.datetime :deleted_at
     end
+
+    add_index addresses_table_name, :user_id
   end
 
   def self.down
@@ -11,6 +13,8 @@ class AddUserIdAndDeletedAtToAddresses < ActiveRecord::Migration
       t.remove :deleted_at
       t.remove :user_id    
     end
+
+    remove_index addresses_table_name, :user_id
   end
   
   private

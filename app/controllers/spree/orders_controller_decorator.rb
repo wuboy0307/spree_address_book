@@ -1,18 +1,11 @@
-Spree::Admin::OrdersController.class_eval do
-  def new
-    @order = Spree::Order.create(order_params)
-    user = @order.user
-    if user
-      @order.update_attributes(bill_address_id: user.bill_address.id)
-      @order.update_attributes(ship_address_id: user.ship_address.id)
+module Spree
+  OrdersController.class_eval do
+    helper Spree::AddressesHelper
+
+    before_action :load_addresses, :only => :edit
+
+    def load_addresses
+      @addresses = spree_current_user ? spree_current_user.addresses.to_a.uniq{|a| "#{a.full_name}-#{a.address1}"} : []
     end
-    redirect_to edit_admin_order_url(@order)
-  end
-
-  private
-
-  def order_params
-    params[:created_by_id] = try_spree_current_user.try(:id)
-    params.permit(:created_by_id, :user_id)
   end
 end

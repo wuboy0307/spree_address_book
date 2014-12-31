@@ -1,16 +1,6 @@
-require 'bundler'
-Bundler::GemHelper.install_tasks
+# Add your own tasks in files placed in lib/tasks ending in .rake,
+# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
-require 'rspec/core/rake_task'
+require File.expand_path('../config/application', __FILE__)
 
-require 'spree/testing_support/extension_rake'
-
-RSpec::Core::RakeTask.new
-
-task :default => [:spec]
-
-desc 'Generates a dummy app for testing the extension'
-task :test_app do
-  ENV['LIB_NAME'] = 'spree_address_book'
-  Rake::Task['extension:test_app'].invoke # 'Spree::User'
-end
+Rails.application.load_tasks

@@ -17,27 +17,14 @@ Spree::Address.class_eval do
     new_record? || !Spree::Order.complete.where("bill_address_id = ? OR ship_address_id = ?", self.id, self.id).exists?
   end
 
-  def can_be_deleted?
-    shipments.empty? && Spree::Order.where("bill_address_id = ? OR ship_address_id = ?", self.id, self.id).count == 0
-  end
-
-  def to_s
-    [
-      "#{firstname} #{lastname}",
-      "#{company}",
-      "#{address1}",
-      "#{address2}",
-      "#{city} #{state_text} #{zipcode}",
-      "#{country}"
-    ].reject(&:empty?).join(" <br/>").html_safe
-  end
-
-  # UPGRADE_CHECK if future versions of spree have a custom destroy function, this will break
-  def destroy
-    if can_be_deleted?
-      super
-    else
-      update_column :deleted_at, Time.now
-    end
+  def to_data
+    {
+        :"data-full-name" => self.try(:full_name),
+        :"data-address1" => self.try(:address1),
+        :"data-city" => self.try(:city),
+        :"data-district" => self.try(:district),
+        :"data-phone" => self.try(:phone),
+        :"data-zipcode" => self.try(:zipcode)
+    }
   end
 end

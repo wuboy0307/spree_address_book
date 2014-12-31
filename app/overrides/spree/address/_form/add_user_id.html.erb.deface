@@ -1,0 +1,2 @@
+<!-- insert_after "erb[silent]:contains('address_id = address_type.chars.first')"-->
+<%= form.hidden_field :user_id, value: spree_current_user.id if spree_current_user %>
