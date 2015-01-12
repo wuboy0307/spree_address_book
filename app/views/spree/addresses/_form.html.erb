@@ -11,6 +11,8 @@
   <% elsif field == "state" && Spree::Config[:address_requires_state] %>
     <%= address_field(address_form, :state, address_id) { address_state(address_form, address.country, address_id) } %>
   <% else %>
+    <% next if field == "last_name"%>
+    <% next if field == "first_name"%>
     <% next if field == "company" && !Spree::Config[:company] %>
     <%= address_field(address_form, field.to_sym, address_id) %>
   <% end %>

@@ -2,7 +2,7 @@
 <% if spree_current_user.addresses.present? %>
 <table id="user_addresses" class="table">
   <tbody>
-    <% spree_current_user.addresses.each do |address| %>
+    <% spree_current_user.addresses.to_a.uniq{|a| "#{a.full_name}-#{a.address1}"}.each do |address| %>
     <tr class="<%= cycle('even', 'odd') %>">
       <td><%= address %></td>
       <td>

@@ -5,14 +5,14 @@
 <% end %>
 
 <% content_for :page_actions do %>
-  <li><%= button_link_to Spree.t(:new_address), new_admin_order_address_url(@order), :icon => 'plus' %></li>
-  <li><%= button_link_to Spree.t(:back_to_orders_list), admin_orders_path, :icon => 'arrow-left' %></li>
+  <%= button_link_to Spree.t(:new_address), new_admin_order_address_url(@order), :icon => 'plus' %>
+  <%= button_link_to Spree.t(:back_to_orders_list), admin_orders_path, :icon => 'arrow-left' %>
 <% end %>
 
 <fieldset class="no-border-bottom">
   <legend><%= I18n.t(:default_user_addresses, scope: :address_book) %></legend>
   <% if @default_user_addresses_hash %>
-    <table id="user_addresses">
+    <table id="user_addresses" class="table table-striped">
       <thead>
         <tr class="<%= cycle('even', 'odd') %>">
           <th><%= I18n.t(:addresses, scope: :address_book) %></th>
