@@ -1,4 +1,11 @@
+//= require ./twzipcode-1.4.1
+
 (function ($) {
+
+    if ($(".adistrict").length > 0) {
+        $(".adistrict").twzipcode(a_json);
+        $('[name="address[zipcode]"]').hide();
+    }
 
     function setAddress($select) {
         var $parent = $select.parents("#billing, #shipping");

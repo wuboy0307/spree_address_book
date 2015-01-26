@@ -1,6 +1,6 @@
 Spree::Address.class_eval do
   belongs_to :user, :class_name => Spree.user_class.to_s
-  attr_accessor :fullname
+  attr_accessor :fullname, :full_name
   before_validation :split_fullname
 
   def fullname
@@ -19,6 +19,7 @@ Spree::Address.class_eval do
 
 
   def split_fullname
+    @fullname ||= @full_name
     if @fullname
       if @fullname.include?(" ")
         # english name split with space
