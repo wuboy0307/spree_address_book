@@ -1,5 +1,43 @@
 Spree::Address.class_eval do
   belongs_to :user, :class_name => Spree.user_class.to_s
+  attr_accessor :fullname
+  before_validation :split_fullname
+
+  def fullname
+    if @fullname
+      result = @fullname
+    elsif lastname && firstname
+      if !!(/^[\x00-\x7F]*$/ =~ "#{lastname}#{firstname}")
+        result = "#{firstname} #{lastname}"
+      else
+        result = "#{lastname}#{firstname}"
+      end
+    end
+    result
+  end
+  alias :full_name :fullname
+
+
+  def split_fullname
+    if @fullname
+      if @fullname.include?(" ")
+        # english name split with space
+        split = @fullname.split(" ")
+        self.lastname = split[1] ? split[1] : "."
+        self.firstname = split[0] ? split[0] : "."
+      elsif !!(@fullname =~ /\p{Han}/) && @fullname.length >= 3
+        # double byte
+        self.firstname = @fullname[@fullname.length-2, 2]
+        self.lastname = @fullname.gsub(@fullname[@fullname.length-2, 2], "")
+      elsif !!(@fullname =~ /\p{Han}/) && @fullname.length == 2
+        self.firstname = @fullname[1, 1]
+        self.lastname = @fullname[0, 1]
+      else
+        self.firstname = @fullname
+        self.lastname = "."
+      end
+    end
+  end
 
   def self.required_fields
     Spree::Address.validators.map do |v|
