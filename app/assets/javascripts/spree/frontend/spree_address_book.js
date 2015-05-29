@@ -19,6 +19,7 @@
 
         $parent.find("[name$='[address1]']").val(address1);
         $parent.find("[name$='[fullname]']").val(fullname);
+        $parent.find("[name$='[full_name]']").val(fullname);
         $parent.find("[name$='[phone]']").val(phone);
         $parent.find("[name$='[zipcode]']").val(zipcode);
         $parent.find("[name$='[city]']").children("option[value='"+ city +"']").attr("selected", true);
