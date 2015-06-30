@@ -1,18 +1,18 @@
 <% address_id = address_type.chars.first %>
 
 <div class="inner" data-hook='<%="#{address_type}_inner" %>'>
-    <p class="field address_form-group" id='<%="#{address_id}full_name" %>'>
+    <p class="form-group" id='<%="#{address_id}full_name" %>'>
         <%= address_form.label :full_name, Spree.t(:fullname) %>
         <%= address_form.text_field :full_name, :class => 'required form-control' %>
     </p>
 
     <% if Spree::Config[:company] %>
-        <p class="address_form-group" id='<%="#{address_id}company" %>'>
+        <p class="form-group" id='<%="#{address_id}company" %>'>
             <%= address_form.label :company, Spree.t(:company) %><br>
             <%= address_form.text_field :company, :class => 'form-control' %>
         </p>
     <% end %>
-    <p class="address_form-group" id='<%="#{address_id}address1" %>'>
+    <p class="form-group" id='<%="#{address_id}address1" %>'>
         <%= address_form.label :address1, Spree.t(:street_address) %><br>
         <% if I18n.locale == :"zh-TW" %>
             <span class="<%=address_id%>district"></span>
@@ -34,7 +34,7 @@
 
     <% if I18n.locale == :"zh-TW" %>
     <% else %>
-        <p class="address_form-group" id='<%="#{address_id}city" %>'>
+        <p class="form-group" id='<%="#{address_id}city" %>'>
             <%= address_form.label :city, Spree.t(:city) %><br>
             <%= address_form.text_field :city, :class => 'form-control required' %>
         </p>
@@ -42,7 +42,7 @@
 
 
     <% if I18n.locale == :"zh-TW" %>
-        <div style="display: none"><p class="address_form-group" id='<%="#{address_id}country" %>'>
+        <div style="display: none"><p class="form-group" id='<%="#{address_id}country" %>'>
             <%= address_form.label :country_id, Spree.t(:country) %><br>
     <span id='<%="#{address_id}country-selection" %>'>
       <%=
@@ -51,7 +51,7 @@
     </span>
         </p></div>
     <% else %>
-        <p class="address_form-group" id='<%="#{address_id}country" %>'>
+        <p class="form-group" id='<%="#{address_id}country" %>'>
             <%= address_form.label :country_id, Spree.t(:country) %><br>
     <span id='<%="#{address_id}country-selection" %>'>
       <%=
@@ -63,7 +63,7 @@
 
 
     <% if Spree::Config[:address_requires_state] %>
-        <p class="address_form-group" id='<%="#{address_id}state" %>'>
+        <p class="form-group" id='<%="#{address_id}state" %>'>
             <% have_states = !address.country.states.empty? %>
             <%= address_form.label :state, Spree.t(:state) %><span class="required" id='<%="#{address_id}state-required"%>'>*</span><br>
 
@@ -90,18 +90,18 @@
 
     <% if I18n.locale == :"zh-TW" %>
     <% else %>
-        <p class="address_form-group" id='<%="#{address_id}zipcode" %>'>
+        <p class="form-group" id='<%="#{address_id}zipcode" %>'>
             <%= address_form.label :zipcode, Spree.t(:zip) %><% if address.require_zipcode? %><br><% end %>
             <%= address_form.text_field :zipcode, :class => "form-control #{'required' if address.require_zipcode?}" %>
         </p>
     <% end %>
 
-    <p class="address_form-group" id='<%="#{address_id}phone" %>'>
+    <p class="form-group" id='<%="#{address_id}phone" %>'>
         <%= address_form.label :phone, Spree.t(:phone) %><% if address.require_phone? %><br><% end %>
         <%= address_form.phone_field :phone, :class => "form-control #{'required' if address.require_phone?}" %>
     </p>
     <% if Spree::Config[:alternative_shipping_phone] %>
-        <p class="address_form-group" id='<%="#{address_id}altphone" %>'>
+        <p class="form-group" id='<%="#{address_id}altphone" %>'>
             <%= address_form.label :alternative_phone, Spree.t(:alternative_phone) %><br>
             <%= address_form.phone_field :alternative_phone, :class => 'form-control' %>
         </p>
