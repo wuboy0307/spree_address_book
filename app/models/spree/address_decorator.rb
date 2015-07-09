@@ -3,6 +3,10 @@ Spree::Address.class_eval do
   attr_accessor :fullname, :full_name
   before_validation :split_fullname
 
+  def self.active
+    where(:active => true)
+  end
+
   def fullname
     if @fullname
       result = @fullname

@@ -53,8 +53,7 @@ module Spree
     end
 
     def destroy
-      @address.destroy
-
+      spree_current_user.addresses.where(:firstname => @address.firstname, :lastname => @address.lastname, :address1 => @address.address1).update_all(:active => false)
       flash[:notice] = Spree.t(:successfully_removed, :resource => Spree.t(:address1))
       redirect_to(request.env['HTTP_REFERER'] || account_path) unless request.xhr?
     end
