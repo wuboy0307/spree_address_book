@@ -1,4 +1,4 @@
-<!-- insert_bottom "#shipping"-->
+<!-- insert_bottom "#shipping .inner"-->
 <% address_type = "shipping" %>
 <% address_name = "ship_address" %>
 <% if @addresses.present? %>

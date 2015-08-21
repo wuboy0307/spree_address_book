@@ -1,4 +1,4 @@
-<!-- insert_bottom "#billing"-->
+<!-- insert_bottom "#billing .inner"-->
 <% address_type = "billing" %>
 <% address_name = "bill_address" %>
 <% if @addresses.present? %>
