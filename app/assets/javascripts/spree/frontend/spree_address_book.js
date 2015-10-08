@@ -1,4 +1,4 @@
-//= require ./twzipcode-1.4.1
+//= require ./jquery.twzipcode
 
 (function ($) {
 

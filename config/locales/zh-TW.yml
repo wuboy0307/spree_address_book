@@ -34,3 +34,4 @@ zh-TW:
     save: "儲存"
   spree:
     select_address: 快速選擇地址
+    address: 地址
