@@ -53,7 +53,7 @@ module Spree
     end
 
     def destroy
-      spree_current_user.addresses.where(:firstname => @address.firstname, :lastname => @address.lastname, :address1 => @address.address1).update_all(:active => false)
+      spree_current_user.addresses.where(:firstname => @address.firstname, :lastname => @address.lastname, :address1 => @address.address1, :district => @address.district).update_all(:active => false)
       flash[:notice] = Spree.t(:successfully_removed, :resource => Spree.t(:address1))
       respond_with do |format|
         format.html do
@@ -65,7 +65,7 @@ module Spree
     private
 
     def address_params
-      params.require(:address).permit(:firstname, :lastname, :full_name, :company, :address1, :address2, :city, :state_id, :state_name, :zipcode, :country_id, :phone, :alternative_phone)
+      params.require(:address).permit(:firstname, :lastname, :full_name, :company, :address1, :address2, :city, :state_id, :state_name, :zipcode, :country_id, :phone, :alternative_phone, :district)
     end
   end
 end
