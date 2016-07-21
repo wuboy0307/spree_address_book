@@ -2,7 +2,7 @@
 
 <div class="inner" data-hook='<%="#{address_type}_inner" %>'>
     <p class="form-group" id='<%="#{address_id}full_name" %>'>
-        <%= address_form.label :full_name, Spree.t(:fullname) %>
+        <%= address_form.label :full_name, Spree.t(:fullname) %><span class="required">*</span><br/>
         <%= address_form.text_field :full_name, :class => 'required form-control' %>
     </p>
 
@@ -13,7 +13,7 @@
         </p>
     <% end %>
     <p class="form-group" id='<%="#{address_id}address1" %>'>
-        <%= address_form.label :address1, Spree.t(:street_address) %><br>
+        <%= address_form.label :address1, Spree.t(:street_address) %><span class="required">*</span><br>
         <% if I18n.locale == :"zh-TW" %>
             <span class="<%=address_id%>district"></span>
             <script>
@@ -43,7 +43,7 @@
 
     <% if I18n.locale == :"zh-TW" %>
         <div style="display: none"><p class="form-group" id='<%="#{address_id}country" %>'>
-            <%= address_form.label :country_id, Spree.t(:country) %><br>
+            <%= address_form.label :country_id, Spree.t(:country) %><span class="required">*</span><br>
     <span id='<%="#{address_id}country-selection" %>'>
       <%=
           address_form.collection_select :country_id, available_countries, :id, :name, {:selected => available_countries.select{ |x| x.numcode == 158 }.first.id}, {:class => 'required'}
@@ -52,7 +52,7 @@
         </p></div>
     <% else %>
         <p class="form-group" id='<%="#{address_id}country" %>'>
-            <%= address_form.label :country_id, Spree.t(:country) %><br>
+            <%= address_form.label :country_id, Spree.t(:country) %><span class="required">*</span><br>
     <span id='<%="#{address_id}country-selection" %>'>
       <%=
           address_form.collection_select :country_id, available_countries, :id, :name, {:selected => available_countries.select{ |x| x.numcode == 158 }.first.id}, {:class => 'required'}
@@ -97,7 +97,7 @@
     <% end %>
 
     <p class="form-group" id='<%="#{address_id}phone" %>'>
-        <%= address_form.label :phone, Spree.t(:phone) %><% if address.require_phone? %><br><% end %>
+        <%= address_form.label :phone, Spree.t(:phone) %><% if address.require_phone? %><span class="required">*</span><br><% end %>
         <%= address_form.phone_field :phone, :class => "form-control #{'required' if address.require_phone?}" %>
     </p>
     <% if Spree::Config[:alternative_shipping_phone] %>

@@ -32,24 +32,13 @@ module Spree
     end
 
     def update
-      if @address.editable?
-        if @address.update_attributes(address_params)
+      addresses = Spree::Address.where(:firstname => @address.firstname, :lastname => @address.lastname, :address1 => @address.address1, :district => @address.district, :phone => @address.phone, :user_id => @address.user_id)
+      addresses.each do |address|
+        if address.update_attributes(address_params)
           flash[:notice] = Spree.t(:successfully_updated, :resource => Spree.t(:address1))
-          redirect_back_or_default(account_path)
-        else
-          render :action => "edit"
-        end
-      else
-        new_address = @address.clone
-        new_address.attributes = address_params
-        @address.update_attribute(:deleted_at, Time.now)
-        if new_address.save
-          flash[:notice] = Spree.t(:successfully_updated, :resource => Spree.t(:address1))
-          redirect_back_or_default(account_path)
-        else
-          render :action => "edit"
         end
       end
+      redirect_back_or_default(account_path)
     end
 
     def destroy
