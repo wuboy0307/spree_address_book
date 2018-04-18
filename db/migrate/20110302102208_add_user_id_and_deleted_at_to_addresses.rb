@@ -1,4 +1,4 @@
-class AddUserIdAndDeletedAtToAddresses < ActiveRecord::Migration
+class AddUserIdAndDeletedAtToAddresses < ActiveRecord::Migration[5.1]
   def self.up
     change_table addresses_table_name do |t|
       t.integer :user_id

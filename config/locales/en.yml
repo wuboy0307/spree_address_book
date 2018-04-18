@@ -20,4 +20,18 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  address_book:
+    other_address: "other address"
+    add_new_shipping_address: "add new address"
+    new_shipping_address: "new address"
+    edit_shipping_address: "edit address"
+    no_shipping_addresses_on_file: "no address now"
+    shipping_addresses: "address book"
+    successfully_saved: "successfully saved"
+    unsuccessfully_saved: "fail to save"
+    successfully_updated: "successfully updated"
+    unsuccessfully_updated: "fail to update"
+    save: "save"
+  spree:
+    select_address: "select address"
+    address: "address"

@@ -1,4 +1,4 @@
-class AddActiveToAddresses < ActiveRecord::Migration
+class AddActiveToAddresses < ActiveRecord::Migration[5.1]
   def change
     add_column :spree_addresses, :active, :boolean, :default => true
     Spree::Address.reset_column_information
