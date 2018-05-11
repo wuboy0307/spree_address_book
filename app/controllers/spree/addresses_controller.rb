@@ -32,7 +32,7 @@ module Spree
     end
 
     def update
-      addresses = Spree::Address.where(:firstname => @address.firstname, :lastname => @address.lastname, :address1 => @address.address1, :district => @address.district, :phone => @address.phone, :user_id => @address.user_id)
+      addresses = Spree::Address.where(:firstname => @address.firstname, :lastname => @address.lastname, :address1 => @address.address1, :phone => @address.phone, :user_id => @address.user_id)
       addresses.each do |address|
         if address.update_attributes(address_params)
           flash[:notice] = Spree.t(:successfully_updated, :resource => Spree.t(:address1))
@@ -42,7 +42,7 @@ module Spree
     end
 
     def destroy
-      spree_current_user.addresses.where(:firstname => @address.firstname, :lastname => @address.lastname, :address1 => @address.address1, :district => @address.district).update_all(:active => false)
+      spree_current_user.addresses.where(:firstname => @address.firstname, :lastname => @address.lastname, :address1 => @address.address1).update_all(:active => false)
       flash[:notice] = Spree.t(:successfully_removed, :resource => Spree.t(:address1))
       respond_with do |format|
         format.html do
