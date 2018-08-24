@@ -44,11 +44,7 @@ module Spree
     def destroy
       spree_current_user.addresses.where(:firstname => @address.firstname, :lastname => @address.lastname, :address1 => @address.address1).update_all(:active => false)
       flash[:notice] = Spree.t(:successfully_removed, :resource => Spree.t(:address1))
-      respond_with do |format|
-        format.html do
-          redirect_to account_path
-        end
-      end
+      redirect_to account_url
     end
 
     private
